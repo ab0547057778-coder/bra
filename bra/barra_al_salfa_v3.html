@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>برا السالفة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070f;
+  --s1:#0e0e1c;
+  --s2:#14142a;
+  --s3:#1c1c38;
+  --acc1:#f0c040;
+  --acc2:#ff6a2f;
+  --acc3:#9b6fff;
+  --acc4:#2de2c8;
+  --acc5:#ff4d6d;
+  --text:#f2efe9;
+  --t2:rgba(242,239,233,0.52);
+  --t3:rgba(242,239,233,0.22);
+  --t4:rgba(242,239,233,0.08);
+  --rad:22px;
+  --rad2:32px;
+  --grd1:linear-gradient(135deg,#9b6fff,#2de2c8);
+  --grd2:linear-gradient(135deg,#f0c040,#ff6a2f);
+  --grd3:linear-gradient(135deg,#ff4d6d,#9b6fff);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;display:flex;
+  justify-content:center;align-items:flex-start;
+  overflow-x:hidden;
+}
+
+/* BG */
+.scene{position:fixed;inset:0;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;pointer-events:none;}
+.orb1{width:500px;height:500px;background:#9b6fff;top:-150px;right:-150px;animation:orbF1 14s ease-in-out infinite alternate;}
+.orb2{width:400px;height:400px;background:#2de2c8;bottom:-100px;left:-120px;animation:orbF2 18s ease-in-out infinite alternate;}
+.orb3{width:300px;height:300px;background:#f0c040;top:40%;left:40%;animation:orbF3 11s ease-in-out infinite alternate;}
+@keyframes orbF1{0%{transform:translate(0,0);}100%{transform:translate(-60px,80px);}}
+@keyframes orbF2{0%{transform:translate(0,0);}100%{transform:translate(80px,-60px);}}
+@keyframes orbF3{0%{transform:translate(0,0) scale(1);}100%{transform:translate(-40px,40px) scale(1.2);}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* WRAP */
+.wrap{position:relative;z-index:2;width:100%;max-width:500px;padding:20px 14px 60px;}
+
+/* SCREEN ANIM */
+.screen{animation:sIn 0.5s cubic-bezier(0.22,1,0.36,1);}
+@keyframes sIn{from{opacity:0;transform:translateY(28px) scale(0.96);}to{opacity:1;transform:none;}}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.045);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:var(--rad2);
+  backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
+  padding:28px 22px;position:relative;overflow:hidden;
+}
+.card-shine{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.18) 50%,transparent 100%);
+}
+.card-glow{
+  position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+  border-radius:50%;opacity:0.06;pointer-events:none;
+}
+
+/* LOGO */
+.logo-wrap{text-align:center;padding:8px 0 28px;}
+.logo-emoji{
+  font-size:64px;display:block;margin-bottom:14px;
+  filter:drop-shadow(0 0 28px rgba(155,111,255,0.5));
+  animation:floaty 3.5s ease-in-out infinite;
+}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-10px) rotate(2deg);}}
+.logo-name{
+  font-size:38px;font-weight:900;letter-spacing:-1px;
+  background:var(--grd1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.logo-tagline{font-size:13px;color:var(--t2);margin-top:6px;font-weight:400;letter-spacing:0.04em;}
+
+/* SECTION LABEL */
+.sec-lbl{
+  font-size:11px;font-weight:800;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--t2);
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--t4);}
+
+/* STEPPER */
+.steppers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.stepper-box{
+  background:var(--t4);border:1px solid rgba(255,255,255,0.07);
+  border-radius:16px;padding:12px 14px;
+}
+.stepper-lbl{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t2);margin-bottom:8px;}
+.stepper-row{display:flex;align-items:center;justify-content:space-between;}
+.step-btn{
+  width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.07);color:var(--text);font-size:20px;
+  cursor:pointer;transition:background 0.15s,transform 0.1s;
+  display:flex;align-items:center;justify-content:center;line-height:1;
+  font-family:'Tajawal',sans-serif;
+}
+.step-btn:hover{background:rgba(255,255,255,0.14);}
+.step-btn:active{transform:scale(0.88);}
+.step-val{font-size:26px;font-weight:900;min-width:40px;text-align:center;}
+
+/* CATEGORY */
+.cat-scroll{
+  display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:8px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.cat-scroll::-webkit-scrollbar{display:none;}
+.cat-chip{
+  flex-shrink:0;padding:9px 16px;border-radius:50px;
+  border:1px solid rgba(255,255,255,0.09);
+  background:rgba(255,255,255,0.05);
+  color:var(--t2);font-size:14px;font-weight:600;
+  font-family:'Tajawal',sans-serif;cursor:pointer;
+  transition:all 0.2s;white-space:nowrap;
+}
+.cat-chip:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+.cat-chip.on{
+  background:rgba(155,111,255,0.22);
+  border-color:rgba(155,111,255,0.5);
+  color:#d4beff;font-weight:800;
+  box-shadow:0 0 16px rgba(155,111,255,0.18);
+}
+
+/* NAME INPUTS */
+.names-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.name-input{
+  width:100%;padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.05);
+  color:var(--text);font-size:14px;font-weight:600;
+  font-family:'Tajawal',sans-serif;transition:all 0.2s;
+}
+.name-input::placeholder{color:var(--t2);font-weight:400;}
+.name-input:focus{outline:none;background:rgba(255,255,255,0.09);border-color:rgba(155,111,255,0.45);}
+
+/* MAIN BTN */
+.btn{
+  width:100%;padding:16px;border:none;border-radius:18px;
+  color:#fff;font-size:18px;font-weight:800;
+  font-family:'Tajawal',sans-serif;cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.2s,opacity 0.15s;
+  position:relative;overflow:hidden;margin-top:14px;
+  letter-spacing:0.02em;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,0.13) 0%,transparent 60%);
+  pointer-events:none;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn:active{transform:scale(0.97);opacity:0.9;}
+.btn-primary{background:var(--grd1);box-shadow:0 6px 28px rgba(155,111,255,0.38);}
+.btn-primary:hover{box-shadow:0 10px 36px rgba(155,111,255,0.5);}
+.btn-gold{background:var(--grd2);box-shadow:0 6px 28px rgba(240,192,64,0.35);}
+.btn-red{background:var(--grd3);box-shadow:0 6px 24px rgba(255,77,109,0.35);}
+.btn-ghost{
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:none;color:var(--text);font-weight:700;font-size:16px;
+}
+.btn-ghost:hover{background:rgba(255,255,255,0.12);}
+
+/* PROGRESS */
+.prog-wrap{margin-bottom:22px;}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;}
+.prog-track{height:5px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;background:var(--grd1);transition:width 0.6s cubic-bezier(0.34,1.56,0.64,1);}
+
+/* ROUND PILL */
+.round-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:99px;
+  background:rgba(155,111,255,0.12);border:1px solid rgba(155,111,255,0.28);
+  color:#c4a7ff;font-size:12px;font-weight:800;letter-spacing:0.06em;
+  text-transform:uppercase;margin-bottom:18px;
+}
+
+/* PLAYER REVEAL */
+.player-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(240,192,64,0.1);border:1px solid rgba(240,192,64,0.25);
+  border-radius:99px;padding:5px 14px;
+  font-size:12px;font-weight:800;color:var(--acc1);
+  text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;
+}
+.player-big{font-size:44px;font-weight:900;line-height:1;margin-bottom:28px;letter-spacing:-1px;}
+
+/* FLIP */
+.flip{
+  height:210px;border-radius:24px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;cursor:pointer;user-select:none;
+  transition:transform 0.15s,box-shadow 0.2s;
+  margin:4px 0 24px;position:relative;overflow:hidden;
+}
+.flip:active{transform:scale(0.97);}
+.flip-lock{
+  background:rgba(255,255,255,0.03);
+  border:2px dashed rgba(255,255,255,0.14);
+}
+.flip-lock .fl-ico{font-size:44px;animation:pulse2 2.8s ease-in-out infinite;}
+@keyframes pulse2{0%,100%{transform:scale(1);opacity:0.7;}50%{transform:scale(1.12);opacity:1;}}
+.flip-lock .fl-txt{font-size:16px;color:var(--t2);font-weight:600;}
+.flip-open{
+  background:linear-gradient(145deg,#1a0d44,#0d2a3a);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.flip-open::before{
+  content:'';position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(155,111,255,0.25),transparent 70%);
+  top:-40px;left:-40px;pointer-events:none;
+}
+.flip-open::after{
+  content:'';position:absolute;
+  width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,rgba(45,226,200,0.15),transparent 70%);
+  bottom:-30px;right:-30px;pointer-events:none;
+}
+.fo-badge{position:relative;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--acc4);opacity:0.8;}
+.fo-word{position:relative;font-size:48px;font-weight:900;letter-spacing:-1px;animation:wPop 0.45s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes wPop{from{transform:scale(0.4) rotate(-8deg);opacity:0;}to{transform:none;opacity:1;}}
+.fo-hint{position:relative;font-size:12px;color:var(--t2);}
+
+/* TIMER */
+.timer-outer{display:flex;justify-content:center;margin-bottom:22px;}
+.timer-ring{position:relative;width:120px;height:120px;}
+.timer-ring svg{transform:rotate(-90deg);}
+.timer-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.t-num{font-size:34px;font-weight:900;line-height:1;}
+.t-lbl{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;}
+
+/* HINTS */
+.hints-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
+.h-pill{
+  padding:10px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);
+  color:var(--t2);font-size:13px;font-family:'Tajawal',sans-serif;
+  cursor:pointer;transition:all 0.18s;text-align:center;
+}
+.h-pill:hover{background:rgba(255,255,255,0.09);color:var(--text);}
+.h-pill.done{
+  background:rgba(45,226,200,0.07);border-color:rgba(45,226,200,0.22);
+  color:var(--acc4);text-decoration:line-through;opacity:0.45;pointer-events:none;
+}
+
+/* OUTSIDER */
+.out-card{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.22);
+  border-radius:18px;padding:16px;margin-bottom:10px;
+  animation:sIn 0.4s ease;
+}
+.out-ava{
+  width:52px;height:52px;border-radius:14px;flex-shrink:0;
+  background:rgba(255,77,109,0.18);
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+}
+.out-name{font-size:20px;font-weight:900;}
+.out-sub{font-size:13px;color:rgba(255,130,130,0.7);margin-top:2px;}
+
+/* WORD COMPARE */
+.wc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+.wb{border-radius:16px;padding:16px 10px;text-align:center;}
+.wb-n{background:rgba(45,226,200,0.08);border:1px solid rgba(45,226,200,0.22);}
+.wb-o{background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.22);}
+.wb-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;opacity:0.65;margin-bottom:6px;}
+.wb-val{font-size:22px;font-weight:900;}
+.wb-n .wb-lbl,.wb-n .wb-val{color:var(--acc4);}
+.wb-o .wb-lbl,.wb-o .wb-val{color:#ff8fa3;}
+
+/* VOTE */
+.vote-box{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+  border-radius:18px;padding:16px;margin:14px 0;
+}
+.vote-ttl{font-size:13px;font-weight:700;color:var(--t2);text-align:center;margin-bottom:12px;}
+.vote-g{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.vbtn{
+  padding:8px 18px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);
+  color:var(--t2);font-size:14px;font-weight:700;
+  font-family:'Tajawal',sans-serif;cursor:pointer;transition:all 0.18s;
+}
+.vbtn:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+.vbtn.on{background:rgba(240,192,64,0.15);border-color:rgba(240,192,64,0.4);color:var(--acc1);}
+
+/* SCORES */
+.s-list{margin:14px 0;}
+.s-row{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:16px;margin-bottom:8px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);
+  transition:all 0.3s;
+}
+.s-row.g1{background:rgba(240,192,64,0.07);border-color:rgba(240,192,64,0.22);}
+.s-row.g2{background:rgba(192,192,192,0.05);border-color:rgba(192,192,192,0.15);}
+.s-row.g3{background:rgba(205,127,50,0.06);border-color:rgba(205,127,50,0.18);}
+.s-rank{font-size:22px;width:32px;text-align:center;flex-shrink:0;}
+.s-name{flex:1;font-size:16px;font-weight:700;}
+.s-pts{
+  background:rgba(255,255,255,0.07);
+  border-radius:99px;padding:4px 14px;
+  font-size:14px;font-weight:900;color:var(--acc1);
+}
+
+/* WINNER */
+.winner{
+  text-align:center;padding:30px 20px;
+  background:linear-gradient(145deg,rgba(240,192,64,0.09),rgba(155,111,255,0.07));
+  border:1px solid rgba(240,192,64,0.18);border-radius:24px;margin-bottom:20px;
+  animation:sIn 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.w-crown{font-size:58px;display:block;animation:floaty 2.5s ease-in-out infinite;margin-bottom:8px;filter:drop-shadow(0 0 20px rgba(240,192,64,0.5));}
+.w-sub{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--t2);}
+.w-name{font-size:38px;font-weight:900;color:var(--acc1);margin:6px 0;letter-spacing:-0.5px;}
+.w-pts{font-size:15px;color:var(--t2);}
+
+/* INFO BOX */
+.info{
+  background:rgba(45,226,200,0.05);border:1px solid rgba(45,226,200,0.14);
+  border-radius:12px;padding:12px 14px;font-size:12px;
+  color:rgba(45,226,200,0.8);line-height:2;margin:10px 0;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;margin-top:28px;
+  font-size:11px;color:var(--t3);letter-spacing:0.05em;line-height:2;
+}
+.footer strong{color:var(--t2);font-weight:700;}
+
+/* DIVIDER */
+.div{height:1px;background:var(--t4);margin:18px 0;}
+
+/* CENTER */
+.tc{text-align:center;}
+.mb4{margin-bottom:4px;}
+.mb12{margin-bottom:12px;}
+.mb18{margin-bottom:18px;}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="grain"></div>
+<div class="wrap"><div id="app"></div></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   WORD BANK — 14 categories, 40+ pairs each
+══════════════════════════════════════════════ */
+const CATS={
+"🍔 أكل":[
+  ["برجر","شاورما"],["بيتزا","فطيرة"],["كبسة","مندي"],["قهوة","شاي"],
+  ["دونات","كوكيز"],["كولا","بيبسي"],["سوشي","روبيان"],["بطاطس مقلية","بطاطس مشوية"],
+  ["آيس كريم","جيلاتو"],["شوكولاته","كاراميل"],["تشيز كيك","تيراميسو"],["ويفر","كيت كات"],
+  ["رز","معكرونة"],["فلافل","كباب"],["لحم","دجاج"],["خبز","كرواسون"],
+  ["عسل","مربى"],["زبدة","جبنة"],["تمر","زبيب"],["مافن","كب كيك"],
+  ["لاتيه","كابتشينو"],["موز","تفاحة"],["مانجو","فراولة"],["عصير برتقال","عصير تفاح"],
+  ["سمبوسة","بريك"],["هريس","جريش"],["مطبق","بنكاك"],["ورق عنب","محشي"],
+  ["حمص","فول"],["باذنجان","كوسا"],["سمك","ربيان"],["لقيمات","زلابية"],
+  ["بسبوسة","كنافة"],["مهلبية","أم علي"],["ماكرون","إيكلير"],["تاكو","بريتو"],
+  ["رامن","أودون"],["ستيك","كوتليت"],["لازانيا","مسقعة"],["باييا","ريزوتو"],
+  ["جوز هند","بطيخ"],["خوخ","كيوي"],["ثوم","بصل"],["زيتون","خيار"],
+  ["برياني","كبسة"],["شاورما لحم","شاورما دجاج"],["فطور سعودي","فطور مصري"],["كيك","تورتة"],
+  ["فشار","شيبس"],["مكسرات","بزر"],["سلطة سيزر","تبولة"],["بيض مقلي","بيض مسلوق"],
+  ["حليب","لبن"],["ماء غازي","عصير طبيعي"],
+],
+"🚗 سيارات":[
+  ["كامري","أكورد"],["مرسيدس","لكزس"],["ددسن","هايلكس"],["موستنق","كامارو"],
+  ["جي كلاس","رنج روفر"],["لامبورغيني","فيراري"],["بورش","ماكلارين"],["تويوتا","هوندا"],
+  ["BMW","أودي"],["باترول","لاند كروزر"],["شيفروليه","فورد"],["كيا","هيونداي"],
+  ["فولفو","جاغوار"],["بنتلي","رولز رويس"],["تسلا","ريفيان"],["مازدا","متسوبيشي"],
+  ["رينو","بيجو"],["فيات","سيات"],["سوبارو","سوزوكي"],["جيب","إنفيتي"],
+  ["لينكون","كاديلاك"],["أكورا","جنسيس"],["بوجاتي","كونيغسيق"],["آستون مارتن","ماكلارين"],
+  ["ألفا روميو","ماسيراتي"],["برامبو","ألبينا"],["سياره هجين","سياره كهربائيه"],
+  ["سيدان","SUV"],["كوبيه","كابريوليه"],["بيك أب","ميني فان"],
+  ["جينيسيس","لكزس"],["جي إم سي","شيفروليه"],["نيسان","تويوتا"],["دايهاتسو","سوزوكي"],
+  ["فورد رابتر","تويوتا هايلكس"],["هامر","جيب رانجلر"],["ماكلارين","بوغاتي"],["سيدان فخم","هاتشباك"],
+  ["دفع رباعي","دفع أمامي"],["سكوتر كهربائي","دراجة نارية"],
+],
+"🎮 ألعاب":[
+  ["ماينكرافت","روبلوكس"],["فالورانت","كود"],["فيفا","eFootball"],["GTA","ريد ديد"],
+  ["فورتنايت","ببجي"],["ليج أوف ليجندز","دوتا 2"],["أمونج أس","أسيسين كريد"],
+  ["زيلدا","ماريو"],["هوقوارتس ليغاسي","إيلدن رينج"],["سبايدرمان","باتمان أركام"],
+  ["هالو","ديستيني"],["أبيكس ليجندز","واذرسبون"],["سايبربانك","ووتشدوجز"],
+  ["ديفل ماي كراي","بايونيتا"],["سوني كرايتون","سوني هورايزن"],["بلودبورن","دارك سولز"],
+  ["أوفرووتش","باراجون"],["تيرارياه","ستارديو فالي"],["أنيمال كروسينج","هاني"],
+  ["نيد فور سبيد","فورزا"],["بيوشوك","سيستم شوك"],["ماس إفيكت","كيارا جرند"],
+  ["مورتال كومبات","تيكين"],["ستريت فايتر","كينغ أوف فايترز"],["بوكيمون","ديجيمون"],
+  ["سونيك","ميغامان"],["بنجو كازووي","كراش بانديكوت"],["راتشيت وكلانك","جاك أند داكستر"],
+  ["ميرابيل","بيومتال"],["أوريوشن","بلات"],["ريزيدنت إيفيل","سايلنت هيل"],
+  ["دياولو","باث أوف إكزايل"],["هيرثستون","ماجيك ذي غازيرينج"],["أسفالت","ريل ريسينج"],
+  ["كول أوف ديوتي","باتلفيلد"],["روكيت ليج","فيفا"],["فري فاير","ببجي موبايل"],["كلاش أوف كلانس","كلاش رويال"],
+  ["كاندي كراش","صب واي سيرفرز"],["رينبو سيكس","كاونتر سترايك"],["ذا لاست أوف أس","ديز جون"],
+  ["ديابلو","باث أوف إكزايل 2"],["فاينل فانتازي","دراجون كويست"],["إف سي 25","إي فوتبول"],
+],
+"⚽ كرة":[
+  ["رونالدو","ميسي"],["الهلال","النصر"],["الاتحاد","الأهلي"],["ريال مدريد","برشلونة"],
+  ["ليفربول","مانشستر سيتي"],["نيمار","مبابي"],["التعاون","الفيحاء"],["لامين يامال","بيدري"],
+  ["إنتر ميلان","ميلان"],["يوفنتوس","نابولي"],["بايرن ميونخ","دورتموند"],["PSG","أرسنال"],
+  ["مانشستر يونايتد","تشيلسي"],["توتنهام","أستون فيلا"],["أتلتيكو مدريد","سيفيا"],
+  ["بنفيكا","بورتو"],["سيلتيك","رينجرز"],["أياكس","PSV"],["زيدان","رونالدينيو"],
+  ["بيكنباور","كروف"],["بيليه","مارادونا"],["لفانتين","بنزيمة"],["هالاند","فينيسيوس"],
+  ["محمد صلاح","سون هيونج مين"],["بوكايو ساكا","مارتيليس"],["كيليان مبابي","ديمبيلي"],
+  ["دفري","فان ديك"],["كيبا","كورتوا"],["تير شتيغن","ألفيسون"],["رحيم ستيرلينج","بيرناردو سيلفا"],
+  ["الشباب","أحد"],["الفتح","ضمك"],["كأس العالم","كأس آسيا"],["دوري روشن","دوري أبطال أوروبا"],
+  ["كرة قدم","كرة يد"],["حكم","لاعب"],["ضربة جزاء","ركلة حرة"],["مدافع","مهاجم"],["حارس مرمى","خط وسط"],
+],
+"🌍 أماكن":[
+  ["مكة","المدينة"],["الرياض","جدة"],["دبي","أبوظبي"],["القاهرة","الإسكندرية"],
+  ["لندن","باريس"],["طوكيو","سيول"],["نيويورك","لوس أنجلوس"],["البر","البحر"],
+  ["الحديقة","الشاطئ"],["النيوم","العُلا"],["أمستردام","بروكسل"],["روما","ميلان"],
+  ["برلين","ميونخ"],["مدريد","برشلونة"],["بانكوك","سنغافورة"],["مومباي","دلهي"],
+  ["إسطنبول","أنقرة"],["ماليزيا","إندونيسيا"],["سيدني","ملبورن"],["كيب تاون","نيروبي"],
+  ["تورنتو","فانكوفر"],["مكسيكو سيتي","بوينس آيرس"],["ريو","ساو باولو"],["براغ","فيينا"],
+  ["موسكو","سانت بطرسبرغ"],["بيجين","شنغهاي"],["أوساكا","كيوتو"],["مراكش","تونس"],
+  ["عمان","مسقط"],["الكويت","البحرين"],["الجبال","السهول"],["الصحراء","الغابة"],
+  ["المدينة","الريف"],["الجنوب","الشمال"],["الشرق","الغرب"],["الجزيرة","القارة"],
+  ["الطائف","أبها"],["تبوك","حائل"],["الدمام","الخبر"],["جازان","نجران"],
+  ["فلورنسا","البندقية"],["فيينا","زيوريخ"],["هلسنكي","ستوكهولم"],["أوسلو","كوبنهاغن"],
+  ["الأهرامات","برج إيفل"],["برج خليفة","برج المملكة"],
+],
+"👕 ملابس":[
+  ["نايك","أديداس"],["قميص","تيشيرت"],["جينز","بنطلون كتان"],["بشت","عباية"],
+  ["كوتشي","صندل"],["شماغ","غترة"],["بليزر","جاكيت"],["سوتشي","بيجامة"],
+  ["ساعة رولكس","ساعة أبل"],["نظارة شمسية","نظارة طبية"],["ثوب","دشداشة"],
+  ["فستان","تنورة"],["بلوزة","قميص كاجوال"],["كاب","بيني"],["وشاح","كرافته"],
+  ["حزام جلد","حزام قماش"],["جوارب","كنادر"],["سترة شتوية","معطف"],["بدلة","كاجوال"],
+  ["رياضي","رسمي"],["أبيض","أسود"],["قطن","بوليستر"],["كاشير","بالنسياغا"],
+  ["زارا","H&M"],["لويس فيتون","غوتشي"],["شانيل","ديور"],["برادا","فيندي"],
+  ["عباس كراتشي","ماكسمارا"],["أنكر","أويا"],["بوما","ريبوك"],["أسيكس","نيوبالانس"],
+  ["سالومون","مونتبيل"],["باتاغونيا","نورث فيس"],["حقيبة يد","حقيبة ظهر"],
+  ["خاتم","سوار"],["قرط","عقد"],["عطر رجالي","عطر نسائي"],
+  ["كروكس","فانز"],["نيو بالانس","أون"],["يوجي","إيزي"],["تومي هيلفيغر","رالف لورين"],
+  ["فيرساتشي","أرماني"],["بربري","مايكل كورس"],["حذاء رياضي","حذاء رسمي"],["قفازات","طاقية"],
+  ["منديل","محفظة"],["دبوس","مشبك"],
+],
+"🎬 أفلام وترفيه":[
+  ["أفنجرز","جاستس ليق"],["ستار وورز","ستار تريك"],["هاري بوتر","ذا هوبيت"],
+  ["تايتانيك","ذا نوتبوك"],["الأسد الملك","عالم النمل"],["إنترستيلار","ذا مارشن"],
+  ["توب غن","ميشن إمبوسبل"],["نتفليكس","ديزني بلس"],["تيك توك","انستقرام"],
+  ["يوتيوب","تويتش"],["سينما","مسرح"],["بودكاست","راديو"],
+  ["رعب","كوميدي"],["أكشن","دراما"],["خيال علمي","فانتازيا"],["رومانسي","تشويق"],
+  ["إكس مين","فانتاستيك فور"],["ثور","كابتن أمريكا"],["باتمان","سوبرمان"],
+  ["سبايدرمان","ديدبول"],["ماتريكس","توتال ريكول"],["ترمينيتر","روبوكوب"],
+  ["غودفيلاز","ذا دبارتد"],["شيندلرز ليست","ذا بيانيست"],["دارك نايت","جوكر"],
+  ["فروزن","تانغلد"],["مونانا","كوكو"],["توي ستوري","فاندينج نيمو"],
+  ["شيرلوك هولمز","هيرودين"],["ووكينغ ديد","آنر آس"],["بريكنج باد","بيتر سولكاوانو"],
+  ["مانداليريان","أوبي وان"],["هاوس أوف ذا دراجون","ذا ويتشر"],["بيك","ستريمر"],
+  ["سعودي دراما","خليجي دراما"],["تركي دراما","كوري دراما"],
+  ["إنسايد أوت","أب"],["شريك","مدغشقر"],["جوماندجي","نايت آت ذا ميوزيم"],["كونجورينج","إنسيديوس"],
+  ["سكريم","فرايداي ذا 13"],["بيونسيه","ريهانا"],["تايلور سويفت","أريانا غراندي"],["دريك","إيمينم"],
+  ["سناب شات","تيليجرام"],["واتساب","ماسنجر"],
+],
+"📱 إلكترونيات":[
+  ["آيفون","سامسونج"],["آيباد","سيرفس"],["بلايستيشن","إكس بوكس"],["آبل ووتش","ويرOS"],
+  ["ماك","ويندوز"],["آيربودز","سوني WH-1000XM5"],["تيفي سمارت","بروجيكتور"],
+  ["نينتندو سويتش","ستيم ديك"],["جي بي إل","سوني SRS"],["دايسون","شاومي"],
+  ["ديل","لينوفو"],["HP","Asus"],["Anker","Belkin"],["سامسونج OLED","LG OLED"],
+  ["OnePlus","Google Pixel"],["هواوي","أوبو"],["ريلمي","ناثينغ"],["موتورولا","نوكيا"],
+  ["ماوس لاسلكي","ماوس سلكي"],["كيبورد ميكانيكي","كيبورد عادي"],["SSD","HDD"],
+  ["RAM 16GB","RAM 32GB"],["شاشة 4K","شاشة 144Hz"],["RTX 4090","RX 7900"],
+  ["ذكاء اصطناعي","برمجة"],["VR هيدسيت","AR نظارة"],["روبوت","درون"],
+  ["كاميرا سوني","كاميرا كانون"],["GoPro","DJI"],["طابعة ثري دي","ليزر كاتر"],
+  ["شاحن لاسلكي","شاحن سريع"],["باور بانك","بطارية"],["USB-C","MagSafe"],
+  ["بلوتوث","واي فاي"],["5G","فايبر"],["VPN","فايروول"],
+  ["آيفون 16","سامسونج S25"],["ماك بوك","سيرفس لابتوب"],["أبل تي في","كروم كاست"],["اليكسا","جوجل هوم"],
+  ["فيتبيت","ساعة سامسونج"],["سماعة سلكية","سماعة لاسلكية"],["شاحن آيفون","شاحن أندرويد"],
+  ["فلاش ميموري","هارد خارجي"],["راوتر","مقوي إشارة"],["تطبيق","موقع إلكتروني"],
+],
+"🐾 حيوانات":[
+  ["قطو","كلب"],["أسد","نمر"],["دلفين","حوت"],["فيل","زرافة"],
+  ["أرنب","سنجاب"],["ببغاء","كناري"],["حصان","جمل"],["قرد","شمبانزي"],
+  ["تمساح","سلحفاة"],["فراشة","نحلة"],["عقاب","بومة"],["نمر الثلج","فهد"],
+  ["ذئب","ثعلب"],["دب","خنزير بري"],["غزال","أيل"],["وعل","كبش"],
+  ["سمك كلاون","سمك ببغاء"],["قرش","أخطبوط"],["حصان البحر","قنديل البحر"],["سرطان البحر","جراد البحر"],
+  ["ضفدع","سمندل"],["ثعبان","سحلية"],["تمساح الغاريال","ورل"],["شبث","عقرب"],
+  ["نمل","صرصار"],["ذبابة","بعوضة"],["عنكبوت","عقرب"],["جراد","صرصار الليل"],
+  ["حمامة","عصفور"],["طاووس","دراج"],["بطريق","فلامنغو"],["توكان","طوقان"],
+  ["كوالا","كنغر"],["وامبات","إمو"],["تاسماني ديفيل","بلاتيبوس"],["ليمور","فوسا"],
+  ["باندا","باندا أحمر"],["دب قطبي","دب بني"],["فيل أفريقي","فيل آسيوي"],["أسد البحر","فقمة"],
+  ["حمار","بغل"],["ماعز","خروف"],["بقرة","ثور"],["ديك","دجاجة"],
+  ["بطة","إوزة"],["أرنب بري","أرنب أليف"],["قط شيرازي","قط سيامي"],["كلب هاسكي","كلب بيتبول"],
+  ["حوت أزرق","حوت أحدب"],["فرس النهر","وحيد القرن"],
+],
+"😂 عشوائي":[
+  ["ليل","نهار"],["شتاء","صيف"],["جوال","آيباد"],["قلم","رصاص"],
+  ["طيارة","قطار"],["كتاب","جريدة"],["حذاء","صندل"],["شمس","قمر"],
+  ["صحراء","غابة"],["جبل","وادي"],["نهر","بحيرة"],["مطر","ثلج"],
+  ["ريح","عاصفة"],["برق","رعد"],["صباح","مساء"],["ربيع","خريف"],
+  ["مدرسة","جامعة"],["دكتور","مهندس"],["طبيب","محامي"],["معلم","أستاذ"],
+  ["مطعم","مقهى"],["سوبرماركت","بقالة"],["ملعب","استاد"],["مسبح","صالة"],
+  ["سرير","أريكة"],["مطبخ","حمام"],["باب","شباك"],["مصعد","درج"],
+  ["تلفون أرضي","لاسلكي"],["راديو","تلفزيون"],["مجلة","صحيفة"],["خريطة","بوصلة"],
+  ["ساعة","تقويم"],["مطرقة","مفك"],["قفل","مفتاح"],["شمعة","بطارية"],
+  ["خيمة","كارافان"],["قارب","طوف"],["دراجة","سكوتر"],["مترو","باص"],
+  ["ورقة","قلم رصاص"],["مظلة","معطف مطر"],["إشارة مرور","دوار"],["مصعد","سلم كهربائي"],
+  ["حقيبة سفر","شنطة يد"],["جواز سفر","بطاقة هوية"],["تذكرة طيران","تأشيرة"],["فندق","شقة مفروشة"],
+  ["مكيف","مروحة"],["غسالة","نشافة"],
+],
+"🎵 موسيقى":[
+  ["عود","قيثارة"],["طبلة","دف"],["مزمار","ناي"],["بيانو","أورغ"],
+  ["أغنية خليجية","أغنية مصرية"],["راب","بوب"],["ريقي","جاز"],["كلاسيك","إلكترونيك"],
+  ["حسين الجسمي","ماجد المهندس"],["محمد عبده","طلال مداح"],["أم كلثوم","فيروز"],
+  ["عمرو دياب","تامر حسني"],["كونسرت","حفلة خاصة"],["مطرب","ملحن"],
+  ["ألبوم","سينجل"],["إذاعة","بودكاست موسيقي"],["سماعة استوديو","سماعة عادية"],
+  ["مايك لاسلكي","مايك سلكي"],["دي جي","فرقة حية"],["نوتة موسيقية","كلمات أغنية"],
+  ["كي بوب","كي دراما"],["فرقة بي تي إس","فرقة بلاك بينك"],["تايلور سويفت","أديل"],
+  ["إد شيران","جاستن بيبر"],["روك","ميتال"],["فولكلور","تراث"],
+  ["مهرجانات مصرية","شعبي خليجي"],["أوركسترا","فرقة شعبية"],["غيتار كهربائي","غيتار كلاسيكي"],
+  ["مايكروفون","سماعة رأس"],
+],
+"💼 مهن":[
+  ["طبيب","ممرض"],["مهندس مدني","مهندس معماري"],["محامي","قاضي"],["معلم","محاضر جامعي"],
+  ["طيار","مضيف طيران"],["شرطي","جندي"],["مبرمج","مصمم جرافيك"],["محاسب","مدقق مالي"],
+  ["صيدلي","طبيب أسنان"],["مصور","مخرج"],["كاتب","صحفي"],["طباخ","شيف"],
+  ["نجار","حداد"],["كهربائي","سباك"],["مزارع","صياد"],["رائد فضاء","طيار حربي"],
+  ["بائع","مندوب مبيعات"],["مدير","موظف"],["ريادي أعمال","مستثمر"],["مؤثر","يوتيوبر"],
+  ["حلاق","خبير تجميل"],["مرشد سياحي","سائق تاكسي"],["مترجم","كاتب محتوى"],
+  ["مصمم أزياء","خياط"],["عامل بناء","مقاول"],["باحث علمي","أستاذ جامعي"],
+  ["مدرب رياضي","حكم رياضي"],["ممثل","مقدم برامج"],["رجل إطفاء","منقذ"],["بيطري","طبيب حيوانات"],
+],
+"🏫 مدرسة وجامعة":[
+  ["مدرسة ابتدائية","مدرسة ثانوية"],["جامعة حكومية","جامعة أهلية"],["اختبار نهائي","اختبار قصير"],
+  ["واجب منزلي","مشروع تخرج"],["فصل دراسي","إجازة صيفية"],["معلم","مشرف"],
+  ["طالب","خريج"],["مقرر إجباري","مقرر اختياري"],["محاضرة","معمل"],
+  ["مكتبة","كافتيريا"],["قلم حبر","قلم رصاص"],["دفتر","كتاب مدرسي"],
+  ["حقيبة مدرسية","حقيبة ظهر"],["طباشير","سبورة ذكية"],["زي مدرسي","ملابس عادية"],
+  ["منحة دراسية","قرض طلابي"],["تخصص علمي","تخصص أدبي"],["ثانوي عام","دبلوم فني"],
+  ["بكالوريوس","ماجستير"],["دكتوراه","زمالة"],["نشاط لاصفي","رحلة مدرسية"],
+  ["استراحة","طابور الصباح"],["مدير المدرسة","وكيل المدرسة"],["حافلة مدرسية","سيارة أهل"],
+  ["اختبار شفهي","اختبار تحريري"],["تقرير","بحث علمي"],["عرض تقديمي","ورقة عمل"],
+  ["فصل عملي","فصل نظري"],["منصة تعليمية","كتاب ورقي"],["زمالة دراسية","تبادل طلابي"],
+],
+"🎉 مناسبات واحتفالات":[
+  ["عيد الفطر","عيد الأضحى"],["اليوم الوطني","يوم التأسيس"],["حفلة تخرج","حفلة زواج"],
+  ["عيد ميلاد","ذكرى سنوية"],["رأس السنة","عيد الحب"],["حفل خطوبة","حفل زفاف"],
+  ["عزيمة عائلية","تجمع أصدقاء"],["مهرجان","معرض"],["كرنفال","سوق موسمي"],
+  ["زفة","استقبال"],["هدية","مفاجأة"],["بطاقة تهنئة","رسالة تهنئة"],
+  ["كيك عيد ميلاد","حلا المناسبات"],["ألعاب نارية","بالونات"],["ديكور المناسبة","إضاءة المناسبة"],
+  ["دعوة إلكترونية","دعوة ورقية"],["قاعة أفراح","فندق"],["مصور مناسبات","فيديوغرافر"],
+  ["منسق حفلات","منظم فعاليات"],["إجازة رسمية","عطلة نهاية أسبوع"],["احتفال عائلي","احتفال عام"],
+  ["موسم الرياض","موسم جدة"],["عيد الأم","يوم المعلم"],["رمضان","شهر شعبان"],
+  ["ليلة القدر","ليلة النصف من شعبان"],["قرقيعان","حق الليلة"],["سهرة","سمر"],
+  ["استراحة عائلية","شاليه"],["مخيم بري","رحلة بحرية"],["حفل تخرج جامعي","حفل تخرج مدرسي"],
+],
+"🛍️ تسوق ومتاجر":[
+  ["كارفور","بنده"],["نون","أمازون"],["نمشي","سيفي"],["ايكيا","هوم سنتر"],
+  ["ستاربكس","كوستا"],["ماكدونالدز","برجر كنق"],["كنتاكي","البيك"],["هرفي","صدفة"],
+  ["دومينوز","بيتزا هت"],["سنتربوينت","ماكس"],["اتش اند ام","زارا"],["أبل ستور","سامسونج ستور"],
+  ["مول","سوق شعبي"],["متجر إلكتروني","متجر فعلي"],["عرض خاص","تخفيضات نهاية الموسم"],
+  ["بطاقة ائتمان","دفع عند الاستلام"],["توصيل سريع","استلام من المتجر"],["كوبون خصم","نقاط ولاء"],
+  ["سلة تسوق","عربة تسوق"],["فاتورة","إيصال"],["بائع","كاشير"],["مرتجعات","استبدال"],
+  ["تطبيق تسوق","موقع تسوق"],["بلاك فرايداي","اليوم الوطني للتسوق"],["مطعم فاخر","مطعم شعبي"],
+  ["كافيه","مقهى تراثي"],["دليفري","تيك أواي"],["مندوب توصيل","سائق أجرة"],["عرض بوفيه","قائمة طعام"],
+  ["فروع متعددة","متجر واحد"],
+],
+};
+
+const HINTS=[
+  "قول كلمة واحدة وصفه","قول متى تستخدمه","قول وين تلقاه",
+  "قول كيف ريحته","قول لونه","قول شكله",
+  "قول من يستخدمه","قول كم يكلف تقريباً","قول شيء متعلق فيه",
+  "قول ضده","قول مين يحبه","قول وين يُصنع",
+  "قول صوته","قول وزنه","قول فصله المفضل",
+  "قول حجمه","قول طعمه","قول أول حرف بالاسم",
+  "قول ذكرى لك فيه","قول مكانه المفضل","قول شعورك تجاهه",
+  "قول متى آخر مرة شفته","قول شيء ما يشبهه","قول عمره تقريباً",
+];
+
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+const S={
+  screen:'setup',
+  players:5,outsiders:1,rounds:3,timerSec:90,
+  category:Object.keys(CATS)[0],
+  round:1,scores:[],
+  playerNames:[],
+  playerWords:[],outsiderIdxs:[],
+  usedPairs:{},
+  cur:0,revealed:false,
+  normalWord:'',outsiderWord:'',
+  timerRef:null,
+};
+
+/* ══════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════ */
+const $=id=>document.getElementById(id);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const render=html=>{$('app').innerHTML=`<div class="screen">${html}</div>`;};
+
+function getName(i){
+  const n=(S.playerNames[i]||'').trim();
+  return n||`اللاعب ${i+1}`;
+}
+
+function syncPlayerNames(){
+  const names=S.playerNames.slice(0,S.players);
+  while(names.length<S.players)names.push('');
+  S.playerNames=names;
+}
+
+function loadSavedNames(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('barra_names')||'[]');
+    if(Array.isArray(saved))S.playerNames=saved;
+  }catch(e){}
+  syncPlayerNames();
+}
+
+function saveNames(){
+  try{localStorage.setItem('barra_names',JSON.stringify(S.playerNames));}catch(e){}
+}
+
+/* ══════════════════════════════════════════════
+   SETUP
+══════════════════════════════════════════════ */
+function showSetup(){
+  S.screen='setup';
+  syncPlayerNames();
+  const chips=Object.keys(CATS).map(c=>
+    `<button class="cat-chip ${c===S.category?'on':''}" onclick="pickCat(this,'${c}')">${c}</button>`
+  ).join('');
+  const nameInputs=Array.from({length:S.players},(_,i)=>`
+    <input class="name-input" type="text" maxlength="16" placeholder="اللاعب ${i+1}"
+      value="${(S.playerNames[i]||'').replace(/"/g,'&quot;')}"
+      oninput="setName(${i},this.value)">
+  `).join('');
+  render(`
+    <div class="card">
+      <div class="card-shine"></div>
+      <div class="card-glow" style="background:var(--acc3);"></div>
+
+      <div class="logo-wrap">
+        <span class="logo-emoji">🎭</span>
+        <div class="logo-name">برا السالفة</div>
+        <div class="logo-tagline">لعبة التجسس الاجتماعي — اكتشف المختلف</div>
+      </div>
+
+      <div class="sec-lbl">إعدادات اللعبة</div>
+      <div class="steppers">
+        <div class="stepper-box">
+          <div class="stepper-lbl">اللاعبين</div>
+          <div class="stepper-row">
+            <button class="step-btn" onclick="step('players',-1,3,15)">−</button>
+            <span class="step-val" id="v-players">${S.players}</span>
+            <button class="step-btn" onclick="step('players',1,3,15)">+</button>
+          </div>
+        </div>
+        <div class="stepper-box">
+          <div class="stepper-lbl">المختلفين</div>
+          <div class="stepper-row">
+            <button class="step-btn" onclick="step('outsiders',-1,1,3)">−</button>
+            <span class="step-val" id="v-outsiders">${S.outsiders}</span>
+            <button class="step-btn" onclick="step('outsiders',1,1,3)">+</button>
+          </div>
+        </div>
+        <div class="stepper-box">
+          <div class="stepper-lbl">الجولات</div>
+          <div class="stepper-row">
+            <button class="step-btn" onclick="step('rounds',-1,1,10)">−</button>
+            <span class="step-val" id="v-rounds">${S.rounds}</span>
+            <button class="step-btn" onclick="step('rounds',1,1,10)">+</button>
+          </div>
+        </div>
+        <div class="stepper-box">
+          <div class="stepper-lbl">وقت النقاش</div>
+          <div class="stepper-row">
+            <button class="step-btn" onclick="step('timerSec',-15,30,300)">−</button>
+            <span class="step-val" id="v-timerSec">${S.timerSec}</span>
+            <button class="step-btn" onclick="step('timerSec',15,30,300)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-lbl">أسماء اللاعبين (اختياري)</div>
+      <div class="names-grid">${nameInputs}</div>
+
+      <div class="sec-lbl">الكاتيقوري</div>
+      <div class="cat-scroll">${chips}</div>
+
+      <button class="btn btn-primary" onclick="beginGame()">🎮 ابدأ اللعبة</button>
+    </div>
+
+    <div class="footer">
+      صُنع بـ ❤️ · <strong>برا السالفة</strong> · جميع الحقوق محفوظة © 2025<br>
+      لعبة اجتماعية للترفيه والتسلية
+    </div>
+  `);
+}
+
+function step(k,d,mn,mx){
+  S[k]=Math.min(mx,Math.max(mn,S[k]+d));
+  if(k==='players'){showSetup();return;}
+  const el=$(`v-${k}`);
+  if(el){el.textContent=S[k];el.style.animation='none';el.offsetHeight;el.style.animation='wPop 0.3s ease';}
+}
+
+function setName(i,v){S.playerNames[i]=v;saveNames();}
+
+function pickCat(el,c){
+  S.category=c;
+  document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+/* ══════════════════════════════════════════════
+   GAME LOGIC
+══════════════════════════════════════════════ */
+function beginGame(){
+  if(S.outsiders>=S.players){alert('المختلفين لازم يكونون أقل من اللاعبين!');return;}
+  syncPlayerNames();saveNames();
+  S.round=1;S.scores=Array(S.players).fill(0);S.usedPairs={};
+  startRound();
+}
+
+function startRound(){
+  const pairs=CATS[S.category];
+  if(!S.usedPairs[S.category])S.usedPairs[S.category]=new Set();
+  const used=S.usedPairs[S.category];
+  let avail=pairs.map((_,i)=>i).filter(i=>!used.has(i));
+  if(avail.length===0){used.clear();avail=pairs.map((_,i)=>i);}
+  const pick=avail[Math.floor(Math.random()*avail.length)];
+  used.add(pick);
+  const pair=pairs[pick];
+  S.normalWord=pair[0];S.outsiderWord=pair[1];
+  const idxs=shuffle([...Array(S.players).keys()]);
+  S.outsiderIdxs=idxs.slice(0,S.outsiders);
+  S.playerWords=Array.from({length:S.players},(_,i)=>S.outsiderIdxs.includes(i)?S.outsiderWord:S.normalWord);
+  S.cur=0;S.revealed=false;
+  showPlayer();
+}
+
+/* ══════════════════════════════════════════════
+   PLAYER SCREEN
+══════════════════════════════════════════════ */
+function showPlayer(){
+  const pct=(S.cur/S.players*100).toFixed(1);
+  const nm=getName(S.cur);
+  const isLast=S.cur+1===S.players;
+  render(`
+    <div class="card">
+      <div class="card-shine"></div>
+      <div class="round-pill">🎯 جولة ${S.round} من ${S.rounds}</div>
+      <div class="prog-wrap">
+        <div class="prog-meta"><span>لاعب ${S.cur+1} من ${S.players}</span><span>${pct}%</span></div>
+        <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="tc mb4"><span class="player-tag">✨ دور</span></div>
+      <div class="player-big tc">${nm}</div>
+
+      ${S.revealed?`
+        <div class="flip flip-open" onclick="hideWord()">
+          <div class="fo-badge">🔐 كلمتك السرية</div>
+          <div class="fo-word">${S.playerWords[S.cur]}</div>
+          <div class="fo-hint">اضغط للإخفاء بعد ما تشوفها</div>
+        </div>
+        <button class="btn btn-primary" onclick="nextPlayer()">
+          ${isLast?'🗣️ ابدأ النقاش':'اللاعب التالي →'}
+        </button>
+      `:`
+        <div class="flip flip-lock" onclick="revealWord()">
+          <div class="fl-ico">🔒</div>
+          <div class="fl-txt">اضغط لكشف كلمتك السرية</div>
+        </div>
+      `}
+    </div>
+    <div class="footer">
+      صُنع بـ ❤️ · <strong>برا السالفة</strong> · جميع الحقوق محفوظة © 2025
+    </div>
+  `);
+}
+
+function revealWord(){S.revealed=true;showPlayer();}
+function hideWord(){S.revealed=false;showPlayer();}
+function nextPlayer(){S.cur++;S.revealed=false;if(S.cur>=S.players)showDiscussion();else showPlayer();}
+
+/* ══════════════════════════════════════════════
+   DISCUSSION
+══════════════════════════════════════════════ */
+function showDiscussion(){
+  let time=S.timerSec;
+  const hints=shuffle([...HINTS]).slice(0,6);
+  const used=new Set();
+  const R=48,C=2*Math.PI*R;
+
+  function timerColor(t){return t>S.timerSec*0.5?'#2de2c8':t>S.timerSec*0.25?'#f0c040':'#ff4d6d';}
+
+  render(`
+    <div class="card">
+      <div class="card-shine"></div>
+      <div class="round-pill">🕵️ جولة ${S.round} من ${S.rounds}</div>
+      <h2 class="tc mb12" style="font-size:26px;font-weight:900;">وقت النقاش</h2>
+      <p class="tc mb18" style="color:var(--t2);font-size:15px;">كل لاعب يعطي تلميح — اكتشفوا المختلف 😈</p>
+
+      <div class="timer-outer">
+        <div class="timer-ring">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="${R}" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+            <circle id="tc" cx="60" cy="60" r="${R}" fill="none" stroke="${timerColor(time)}" stroke-width="8"
+              stroke-dasharray="${C.toFixed(2)} ${C.toFixed(2)}"
+              stroke-linecap="round" style="transition:stroke-dasharray 1s linear,stroke 0.4s;"/>
+          </svg>
+          <div class="timer-mid">
+            <div class="t-num" id="tn">${time}</div>
+            <div class="t-lbl">ثانية</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-lbl">أفكار للتلميح</div>
+      <div class="hints-g">
+        ${hints.map((h,i)=>`<button class="h-pill" data-i="${i}" onclick="useHint(this)">${h}</button>`).join('')}
+      </div>
+
+      <button class="btn btn-red" onclick="goReveal()" style="margin-bottom:10px;">🎯 كشف المختلف</button>
+      <button class="btn btn-ghost" onclick="addT()">⏱️ +30 ثانية</button>
+    </div>
+    <div class="footer">
+      صُنع بـ ❤️ · <strong>برا السالفة</strong> · جميع الحقوق محفوظة © 2025
+    </div>
+  `);
+
+  window.useHint=el=>el.classList.add('done');
+  window.addT=()=>{time+=30;};
+
+  if(S.timerRef)clearInterval(S.timerRef);
+  S.timerRef=setInterval(()=>{
+    time--;
+    const tn=$('tn'),tc=$('tc');
+    if(tn)tn.textContent=time;
+    if(tc){
+      const pct=Math.max(0,time/S.timerSec);
+      tc.setAttribute('stroke-dasharray',`${(pct*C).toFixed(2)} ${C.toFixed(2)}`);
+      tc.setAttribute('stroke',timerColor(time));
+    }
+    if(time<=0){clearInterval(S.timerRef);S.timerRef=null;goReveal();}
+  },1000);
+}
+
+/* ══════════════════════════════════════════════
+   REVEAL
+══════════════════════════════════════════════ */
+function goReveal(){
+  if(S.timerRef){clearInterval(S.timerRef);S.timerRef=null;}
+  window._votes=new Set();
+  render(`
+    <div class="card">
+      <div class="card-shine"></div>
+      <div class="round-pill">🎯 الكشف — جولة ${S.round}</div>
+      <h2 class="tc mb12" style="font-size:24px;font-weight:900;">من كان المختلف؟</h2>
+
+      ${S.outsiderIdxs.map(i=>`
+        <div class="out-card">
+          <div class="out-ava">🕵️</div>
+          <div>
+            <div class="out-name">${getName(i)}</div>
+            <div class="out-sub">كانت كلمته مختلفة!</div>
+          </div>
+        </div>
+      `).join('')}
+
+      <div class="wc">
+        <div class="wb wb-n">
+          <div class="wb-lbl">الكلمة العادية</div>
+          <div class="wb-val">${S.normalWord}</div>
+        </div>
+        <div class="wb wb-o">
+          <div class="wb-lbl">كلمة المختلف</div>
+          <div class="wb-val">${S.outsiderWord}</div>
+        </div>
+      </div>
+
+      <div class="vote-box">
+        <div class="vote-ttl">👆 من اكتشف المختلف؟</div>
+        <div class="vote-g">
+          ${Array.from({length:S.players},(_,i)=>S.outsiderIdxs.includes(i)?'':`
+            <button class="vbtn" id="vb-${i}" onclick="tv(${i})">${getName(i)}</button>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="info">
+        ✅ من اكتشف المختلف = +2 نقطة&nbsp;&nbsp;|&nbsp;&nbsp;🕵️ مختلف ما اتكشف = +3 نقاط
+      </div>
+
+      <button class="btn btn-gold" onclick="endRound()">تسجيل النتائج ✅</button>
+    </div>
+    <div class="footer">
+      صُنع بـ ❤️ · <strong>برا السالفة</strong> · جميع الحقوق محفوظة © 2025
+    </div>
+  `);
+
+  window.tv=i=>{
+    const b=$(`vb-${i}`);
+    if(window._votes.has(i)){window._votes.delete(i);b.classList.remove('on');}
+    else{window._votes.add(i);b.classList.add('on');}
+  };
+}
+
+/* ══════════════════════════════════════════════
+   SCORES
+══════════════════════════════════════════════ */
+function endRound(){
+  const caught=window._votes.size>0;
+  window._votes.forEach(i=>{S.scores[i]+=2;});
+  if(!caught)S.outsiderIdxs.forEach(i=>{S.scores[i]+=3;});
+  showScores();
+}
+
+function showScores(){
+  const sorted=S.scores
+    .map((pts,i)=>[i,pts])
+    .sort((a,b)=>b[1]-a[1]);
+  const medals=['🥇','🥈','🥉'];
+  const cls=['g1','g2','g3'];
+  const isLast=S.round>=S.rounds;
+  render(`
+    <div class="card">
+      <div class="card-shine"></div>
+      ${isLast?`
+        <div class="winner">
+          <span class="w-crown">👑</span>
+          <div class="w-sub">الفائز</div>
+          <div class="w-name">${getName(sorted[0][0])}</div>
+          <div class="w-pts">${sorted[0][1]} نقطة</div>
+        </div>
+      `:`
+        <div class="round-pill">🏆 بعد الجولة ${S.round} من ${S.rounds}</div>
+        <h2 class="tc mb12" style="font-size:24px;font-weight:900;">النقاط</h2>
+      `}
+
+      <div class="s-list">
+        ${sorted.map(([idx,pts],i)=>{
+          const isOut=S.outsiderIdxs.includes(idx);
+          return `<div class="s-row ${cls[i]||''}">
+            <div class="s-rank">${medals[i]||'·'}</div>
+            <div class="s-name">${getName(idx)}${isOut?' 🕵️':''}</div>
+            <div class="s-pts">${pts}</div>
+          </div>`;
+        }).join('')}
+      </div>
+
+      ${isLast?`
+        <button class="btn btn-primary" onclick="showSetup()">🎮 لعبة جديدة</button>
+      `:`
+        <button class="btn btn-primary" onclick="nextRound()">الجولة التالية ${S.round+1}/${S.rounds} →</button>
+        <button class="btn btn-ghost" onclick="showSetup()">إعادة من البداية</button>
+      `}
+    </div>
+    <div class="footer">
+      صُنع بـ ❤️ · <strong>برا السالفة</strong> · جميع الحقوق محفوظة © 2026<br>
+      لعبة اجتماعية للترفيه والتسلية — لا يُسمح بالنسخ أو التوزيع
+    </div>
+  `);
+}
+
+function nextRound(){S.round++;startRound();}
+
+/* ── BOOT ── */
+loadSavedNames();
+showSetup();
+</script>
+</body>
+</html>
